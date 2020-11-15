@@ -1,41 +1,48 @@
 import React from 'react';
+// Mostre os dados da aplicação, como aprensetado no vídeo
+// Não utilize CSS externo, use o style para mudar as cores
+// Se a situação estiver ativa pinte de verde, inativa vermelho
+// Se o gasto for maior que 10000 mostre uma mensagem
+const luana = {
+  cliente: 'Luana',
+  idade: 27,
+  compras: [
+    { nome: 'Notebook', preco: 'R$ 2500' },
+    { nome: 'Geladeira', preco: 'R$ 3000' },
+    { nome: 'Smartphone', preco: 'R$ 1500' },
+  ],
+  ativa: true,
+};
 
-const titulo = <h1>Esse é meu titulo</h1>;
+const mario = {
+  cliente: 'Mario',
+  idade: 31,
+  compras: [
+    { nome: 'Notebook', preco: 'R$ 2500' },
+    { nome: 'Geladeira', preco: 'R$ 3000' },
+    { nome: 'Smartphone', preco: 'R$ 1500' },
+    { nome: 'Guitarra', preco: 'R$ 3500' },
+  ],
+  ativa: false,
+};
 
 const App = () => {
-  const random = Math.random();
-  const ativo = true;
+  const dados = mario;
 
-  function mostrarNome(sobrenome) {
-    return 'Paulo' + sobrenome;
-  }
-
-  const carro = {
-    marca: 'Honda',
-    rodas: 4,
-  };
-
-  const estiloP = {
-    color: 'blue',
-    fontSize: '2rem',
-  };
+  const total = dados.compras
+    .map((item) => +item.preco.replace('R$ ', ''))
+    .reduce((a, b) => a + b);
 
   return (
-    <>
-      {titulo}
-      {/* a funcao tem q ser ativa para printar o valor retornado */}
-      {mostrarNome('Marolla')}
-      <br />
-      {/* ele nao printa true ou false, mas printa os valores - ele printa os numeros se passados */}
-      {true ? 'o valor é true' : 'O valor é false'} - {10}
-      {/* posso realizar expressoes matematicas direto aqui dentro */}
-      <p style={estiloP} className={ativo ? 'ativo' : 'inativo'}>
-        {random * 100}
+    <div>
+      <p>Nome: {dados.cliente}</p>
+      <p>Idade: {dados.idade}</p>
+      <p style={{ color: dados.ativa ? 'green' : 'red' }}>
+        Situação: {dados.ativa ? 'Ativa' : 'Inativa'}
       </p>
-      <br />
-      {carro.marca}
-      {carro.rodas}
-    </>
+      <p>Total: R$ {total}</p>
+      {total > 10000 && <p>Você está gastando muito</p>}
+    </div>
   );
 };
 
