@@ -1,13 +1,10 @@
 import React from 'react';
-import Footer from './Footer';
-import Header from './Header';
+import Form from './form/Form';
 
 const App = () => {
   return (
     <>
-      <Header />
-      <p>Conteudo</p>
-      <Footer />
+      <Form />
     </>
   );
 };
