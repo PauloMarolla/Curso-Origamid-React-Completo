@@ -1,22 +1,24 @@
 import React from 'react';
-import Produtos from './Produtos';
-import Home from './Home';
-import Header from './Header';
+import ButtonModal from './ButtonModal';
+import Modal from './Modal';
 
 const App = () => {
-  const { pathname } = window.location;
+  // o useState tem que estar dentro do componente para funcionar
+  const [ativo, setAtivo] = React.useState(false);
 
-  let Component;
+  const [modal, setModal] = React.useState(false);
 
-  if (pathname === '/produtos') {
-    Component = Produtos;
-  } else {
-    Component = Home;
+  function handleClick() {
+    setAtivo(!ativo);
   }
   return (
     <>
-      <Header />
-      <Component />
+      <div>{modal ? 'Modal Aberto' : 'Modal Fechado'}</div>
+      <ButtonModal setModal={setModal} />
+      <Modal modal={modal} setModal={setModal} />
+      <br />
+
+      <button onClick={handleClick}>{ativo ? 'Ativo' : 'Inativo'}</button>
     </>
   );
 };
