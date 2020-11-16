@@ -1,24 +1,20 @@
 import React from 'react';
-import ButtonModal from './ButtonModal';
-import Modal from './Modal';
 
 const App = () => {
-  // o useState tem que estar dentro do componente para funcionar
-  const [ativo, setAtivo] = React.useState(false);
-
-  const [modal, setModal] = React.useState(false);
+  const [contar, setContar] = React.useState(1);
+  const [items, setItems] = React.useState(['Item 1']);
 
   function handleClick() {
-    setAtivo(!ativo);
+    setContar((contar) => contar + 1);
+    setItems((items) => [...items, 'Item' + (contar + 1)]);
   }
+
   return (
     <>
-      <div>{modal ? 'Modal Aberto' : 'Modal Fechado'}</div>
-      <ButtonModal setModal={setModal} />
-      <Modal modal={modal} setModal={setModal} />
-      <br />
-
-      <button onClick={handleClick}>{ativo ? 'Ativo' : 'Inativo'}</button>
+      {items.map((item) => (
+        <li key={item}>{item}</li>
+      ))}
+      <button onClick={handleClick}>{contar}</button>
     </>
   );
 };
