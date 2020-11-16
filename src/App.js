@@ -1,10 +1,22 @@
 import React from 'react';
-import Form from './form/Form';
+import Produtos from './Produtos';
+import Home from './Home';
+import Header from './Header';
 
 const App = () => {
+  const { pathname } = window.location;
+
+  let Component;
+
+  if (pathname === '/produtos') {
+    Component = Produtos;
+  } else {
+    Component = Home;
+  }
   return (
     <>
-      <Form />
+      <Header />
+      <Component />
     </>
   );
 };
