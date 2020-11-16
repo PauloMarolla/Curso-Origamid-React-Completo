@@ -1,9 +1,13 @@
 import React from 'react';
+import Footer from './Footer';
+import Header from './Header';
 
 const App = () => {
   return (
     <>
-      <button onClick={(event) => console.log(event)}>Clique</button>
+      <Header />
+      <p>Conteudo</p>
+      <Footer />
     </>
   );
 };
