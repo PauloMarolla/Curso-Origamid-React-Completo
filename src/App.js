@@ -1,24 +1,17 @@
 import React from 'react';
 
-function operacaoLenta() {
-  let c;
-  for (let i = 0; 1 < 100000000; i++) {
-    c = i + 1 / 10;
-    return c;
-  }
-}
-
 const App = () => {
   const [contar, setContar] = React.useState(0);
 
-  const t1 = performance.now();
-  const valor = React.useMemo(() => operacaoLenta(), []);
-  console.log(performance.now() - t1);
-  console.log(valor);
+  //UseCalback cria apenas 1 funcao toda vez q o componente for renderizado novamente
+  const handleClick = React.useCallback(() => {
+    //no callback da funcao atualizadora do useState, a gente tem o valor anterior do elemento
+    setContar((value) => value + 1);
+  }, []);
 
   return (
     <>
-      <button onClick={() => setContar(contar + 1)}>{contar}</button>
+      <button onClick={handleClick}>{contar}</button>
     </>
   );
 };
