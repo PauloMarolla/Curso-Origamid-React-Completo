@@ -1,20 +1,27 @@
 import React from 'react';
+import Produto from './Produto';
 
 const App = () => {
-  const [contar, setContar] = React.useState(1);
-  const [items, setItems] = React.useState(['Item 1']);
+  const [produto, setProduto] = React.useState(null);
+  const [carregando, setCarregando] = React.useState(false);
 
-  function handleClick() {
-    setContar((contar) => contar + 1);
-    setItems((items) => [...items, 'Item' + (contar + 1)]);
+  async function handleClick({ target }) {
+    setCarregando(true);
+    const response = await fetch(
+      `https://ranekapi.origamid.dev/json/api/produto/${target.innerText}`,
+    );
+    const json = await response.json();
+    setProduto(json);
+    setCarregando(false);
   }
 
   return (
     <>
-      {items.map((item) => (
-        <li key={item}>{item}</li>
-      ))}
-      <button onClick={handleClick}>{contar}</button>
+      {produto ? <Produto {...produto} /> : 'Sem produtos'}
+      {carregando && <p>Carregando...</p>}
+      <button onClick={handleClick}>notebook</button>
+      <button onClick={handleClick}>smartphone</button>
+      <button onClick={handleClick}>tablet</button>
     </>
   );
 };
