@@ -1,33 +1,48 @@
 import React from 'react';
-import Produto from './Produto';
 
 const App = () => {
-  const [dados, setDados] = React.useState(null);
+  const [comentarios, setComentarios] = React.useState([]);
+  const [input, setInput] = React.useState('');
+  const inputElement = React.useRef();
 
-  function handleClick(event) {
-    const produto = event.target.innerText;
-    produto != null
-      ? localStorage.setItem('preferencia', produto)
-      : console.log('produto é null');
-    getProduto(produto);
+  const [carrinho, setCarrinho] = React.useState(0);
+  const [notificacao, setNotificacao] = React.useState(null);
+  const timeoutRef = React.useRef();
+
+  function handleClick() {
+    setComentarios([...comentarios, input]);
+    //sempre usar o current, para o useRef para ter a referenciado objeto
+    inputElement.current.focus();
   }
 
-  function getProduto(produto) {
-    fetch(`https://ranekapi.origamid.dev/json/api/produto/${produto}`)
-      .then((r) => r.json())
-      .then((response) => [setDados(response), console.log(response)]);
-  }
+  function handleCarrinho() {
+    setCarrinho(carrinho + 1);
+    setNotificacao('Item adicionado ao carrinho!');
 
-  React.useEffect(() => {
-    const preferencia = localStorage.getItem('preferencia');
-    if (preferencia != null) getProduto(preferencia);
-  }, []);
+    //sempre utilizar o current no elementRef
+    clearInterval(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => {
+      setNotificacao(null);
+    }, 2000);
+  }
 
   return (
     <>
-      <Produto {...dados} />
-      <button onClick={handleClick}>notebook</button>
-      <button onClick={handleClick}>smartphone</button>
+      <ul>
+        {comentarios.map((comentario, index) => (
+          <li key={index}>{comentario}</li>
+        ))}
+      </ul>
+      <input
+        type="text"
+        value={input}
+        ref={inputElement}
+        onChange={({ target }) => setInput(target.value)}
+      />
+      <button onClick={handleClick}>Enviar</button>
+
+      <p>{notificacao}</p>
+      <button onClick={handleCarrinho}>Adicionar ao Carrinho {carrinho}</button>
     </>
   );
 };
