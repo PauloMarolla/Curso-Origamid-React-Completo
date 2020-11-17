@@ -1,27 +1,25 @@
 import React from 'react';
-import Produto from './Produto';
 
 const App = () => {
-  const [produto, setProduto] = React.useState(null);
-  const [carregando, setCarregando] = React.useState(false);
+  const [contar, setContar] = React.useState(0);
 
-  async function handleClick({ target }) {
-    setCarregando(true);
-    const response = await fetch(
-      `https://ranekapi.origamid.dev/json/api/produto/${target.innerText}`,
-    );
-    const json = await response.json();
-    setProduto(json);
-    setCarregando(false);
-  }
+  console.log('teste');
+  // o useEffect será ativado toda vez q a array de dependencias alterar, caso nao houver dependencia, apenas será executado uma unica vez
+  React.useEffect(() => {
+    console.log('use effect');
+  }, []);
+
+  React.useEffect(() => {
+    document.title = 'total ' + contar;
+    //o return recebe uma funcao de callback, q será executada toda vez q o efeito sair da tela
+    return () => {
+      console.log('saiu da tela');
+    };
+  }, [contar]);
 
   return (
     <>
-      {produto ? <Produto {...produto} /> : 'Sem produtos'}
-      {carregando && <p>Carregando...</p>}
-      <button onClick={handleClick}>notebook</button>
-      <button onClick={handleClick}>smartphone</button>
-      <button onClick={handleClick}>tablet</button>
+      <button onClick={() => setContar(contar + 1)}>{contar}</button>
     </>
   );
 };
