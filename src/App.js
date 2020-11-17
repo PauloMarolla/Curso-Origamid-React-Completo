@@ -1,48 +1,24 @@
 import React from 'react';
 
+function operacaoLenta() {
+  let c;
+  for (let i = 0; 1 < 100000000; i++) {
+    c = i + 1 / 10;
+    return c;
+  }
+}
+
 const App = () => {
-  const [comentarios, setComentarios] = React.useState([]);
-  const [input, setInput] = React.useState('');
-  const inputElement = React.useRef();
+  const [contar, setContar] = React.useState(0);
 
-  const [carrinho, setCarrinho] = React.useState(0);
-  const [notificacao, setNotificacao] = React.useState(null);
-  const timeoutRef = React.useRef();
-
-  function handleClick() {
-    setComentarios([...comentarios, input]);
-    //sempre usar o current, para o useRef para ter a referenciado objeto
-    inputElement.current.focus();
-  }
-
-  function handleCarrinho() {
-    setCarrinho(carrinho + 1);
-    setNotificacao('Item adicionado ao carrinho!');
-
-    //sempre utilizar o current no elementRef
-    clearInterval(timeoutRef.current);
-    timeoutRef.current = setTimeout(() => {
-      setNotificacao(null);
-    }, 2000);
-  }
+  const t1 = performance.now();
+  const valor = React.useMemo(() => operacaoLenta(), []);
+  console.log(performance.now() - t1);
+  console.log(valor);
 
   return (
     <>
-      <ul>
-        {comentarios.map((comentario, index) => (
-          <li key={index}>{comentario}</li>
-        ))}
-      </ul>
-      <input
-        type="text"
-        value={input}
-        ref={inputElement}
-        onChange={({ target }) => setInput(target.value)}
-      />
-      <button onClick={handleClick}>Enviar</button>
-
-      <p>{notificacao}</p>
-      <button onClick={handleCarrinho}>Adicionar ao Carrinho {carrinho}</button>
+      <button onClick={() => setContar(contar + 1)}>{contar}</button>
     </>
   );
 };
