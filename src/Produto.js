@@ -11,7 +11,16 @@ const Produto = () => {
     <div>
       <p>{dados.nome}</p>
 
-      <button onClick={() => contexto.adicionarUm()}>{contexto.contar}</button>
+      <button onClick={() => contexto.limparDados()}>Limpar</button>
+
+      {contexto.dados &&
+        contexto.dados.map(({ id, fotos, nome, preco }) => (
+          <ul key={id}>
+            <li>Nome: {nome}</li>
+            <li>Foto: {fotos[0].src}</li>
+            <li>Preço: {preco}</li>
+          </ul>
+        ))}
     </div>
   );
 };

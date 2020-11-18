@@ -6,15 +6,19 @@ export const GlobalContext = React.createContext();
 // Muito util para ter estados e dados pela aplicação de forma global
 export const GlobalStorage = ({ children }) => {
   const [contar, setContar] = React.useState(0);
+  const [dados, setDados] = React.useState(null);
 
-  function adicionarUm() {
-    setContar((contar) => contar + 1);
-  }
-  function adicionarDois() {
-    setContar((contar) => contar + 2);
+  React.useEffect(() => {
+    fetch('https://ranekapi.origamid.dev/json/api/produto/')
+      .then((r) => r.json())
+      .then((r) => [setDados(r), console.log(r)]);
+  }, []);
+
+  function limparDados() {
+    setDados(null);
   }
   return (
-    <GlobalContext.Provider value={{ contar, adicionarUm, adicionarDois }}>
+    <GlobalContext.Provider value={{ contar, dados, limparDados }}>
       {children}
     </GlobalContext.Provider>
   );
