@@ -1,18 +1,17 @@
 import React from 'react';
-import Produto from './Produto';
-import UserContext from './UserContext';
-import { GlobalStorage } from './GlobalContext';
+import useLocalStorage from './useLocalStorage';
 
-console.log(UserContext);
 const App = () => {
+  const [produto, setProduto] = useLocalStorage('produto', '');
   return (
     <>
-      {/* posso passar qualquer valor que quiser no context */}
-      <GlobalStorage>
-        <UserContext.Provider value={{ nome: 'Paulo' }}>
-          <Produto />
-        </UserContext.Provider>
-      </GlobalStorage>
+      <p>Produto preferido: {produto}</p>
+      <button onClick={({ target }) => setProduto(target.innerText)}>
+        notebook
+      </button>
+      <button onClick={({ target }) => setProduto(target.innerText)}>
+        smartphone
+      </button>
     </>
   );
 };
