@@ -1,9 +1,13 @@
 import React from 'react';
 
-const App = () => {
-  const [termos, setTermos] = React.useState(false);
-  const [cores, setCores] = React.useState(['azul']);
+//minha lista de cores para o map
+const coresArray = ['azul', 'roxo', 'laranja', 'verde', 'vermelho', 'cinza'];
 
+const App = () => {
+  //meu estado com as cores pre selecionadas
+  const [cores, setCores] = React.useState(['azul', 'cinza']);
+
+  //funcao atualizadora de estado
   function handleChange({ target }) {
     if (target.checked) {
       setCores([...cores, target.value]);
@@ -14,36 +18,23 @@ const App = () => {
 
   return (
     <>
-      {termos && <p>Aceitou os termos</p>}
       <form action="">
-        <label>
-          <input
-            type="checkbox"
-            value="termos"
-            checked={termos}
-            onChange={({ target }) => setTermos(target.checked)}
-          />
-          Aceito os termos.
-        </label>
-        <h2>Multiplos checkBox</h2>
-        <label>
-          <input
-            type="checkbox"
-            value="azul"
-            checked={cores.includes('azul')}
-            onChange={handleChange}
-          />
-          Azul
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            value="vermelho"
-            checked={cores.includes('vermelho')}
-            onChange={handleChange}
-          />
-          Vermelho
-        </label>
+        <h2>Cores</h2>
+        {/* //um map com cada checkbox de acordo com o valor de cada um na array */}
+        {coresArray.map((itemCor) => {
+          return (
+            // transformando a primeira letra da label em maiuscula com css
+            <label key={itemCor} style={{ textTransform: 'capitalize' }}>
+              <input
+                type="checkbox"
+                value={itemCor}
+                checked={cores.includes(itemCor)}
+                onChange={handleChange}
+              />
+              {itemCor}
+            </label>
+          );
+        })}
       </form>
     </>
   );
