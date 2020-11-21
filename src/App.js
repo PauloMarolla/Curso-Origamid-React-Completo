@@ -1,55 +1,46 @@
 import React from 'react';
 
 const App = () => {
-  const [produto, setProduto] = React.useState('');
-  const [cor, setCor] = React.useState('');
+  const [termos, setTermos] = React.useState(false);
+  const [cores, setCores] = React.useState(['azul']);
 
   function handleChange({ target }) {
-    setProduto(target.value);
+    if (target.checked) {
+      setCores([...cores, target.value]);
+    } else {
+      setCores(cores.filter((cor) => cor !== target.value));
+    }
   }
 
   return (
     <>
-      {/* Essa é a primeira forma de fazer o input radio ser reativo, passando o name unico */}
-      <h2>Produto</h2>
-      {produto}
+      {termos && <p>Aceitou os termos</p>}
       <form action="">
         <label>
           <input
-            onChange={handleChange}
-            name="produto"
-            value="smartphone"
-            type="radio"
+            type="checkbox"
+            value="termos"
+            checked={termos}
+            onChange={({ target }) => setTermos(target.checked)}
           />
-          Smartphone
+          Aceito os termos.
         </label>
+        <h2>Multiplos checkBox</h2>
         <label>
           <input
-            onChange={handleChange}
-            name="produto"
-            value="notebook"
-            type="radio"
-          />
-          Notebook
-        </label>
-        <h2>Cor</h2>
-        {/* essa é a segunda forma de fazer o input radio reativo, passando o checked da variavel comparando com o valor */}
-        {cor}
-        <label>
-          <input
-            onChange={({ target }) => setCor(target.value)}
+            type="checkbox"
             value="azul"
-            checked={cor === 'azul'}
-            type="radio"
+            checked={cores.includes('azul')}
+            onChange={handleChange}
           />
           Azul
         </label>
         <label>
           <input
-            onChange={({ target }) => setCor(target.value)}
+            type="checkbox"
             value="vermelho"
-            type="radio"
-            checked={cor === 'vermelho'}
+            checked={cores.includes('vermelho')}
+            onChange={handleChange}
           />
           Vermelho
         </label>
