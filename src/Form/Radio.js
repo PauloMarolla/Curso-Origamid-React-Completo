@@ -1,22 +1,35 @@
 import React from 'react';
 
-//passando os parametros igual input, mas validando o checked
-const Radio = ({ options, value, setValue, ...props }) => {
+const Radio = ({
+  id,
+  options,
+  pergunta,
+  resposta,
+  onChange,
+  value,
+  active,
+}) => {
+  console.log(active);
+  if (active === false) return null;
   return (
-    <>
+    <fieldset style={{ padding: '2rem' }}>
+      <legend>{pergunta}</legend>
       {options.map((option) => (
-        <label key={option}>
+        <label
+          key={option}
+          style={{ marginBottom: '1rem', fontFamily: 'monospace' }}
+        >
           <input
             type="radio"
-            value={option}
+            id={id}
             checked={value === option}
-            onChange={({ target }) => setValue(target.value)}
-            {...props}
+            value={option}
+            onChange={onChange}
           />
           {option}
         </label>
       ))}
-    </>
+    </fieldset>
   );
 };
 
