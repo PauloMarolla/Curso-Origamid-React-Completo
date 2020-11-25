@@ -1,7 +1,7 @@
 import React from 'react';
 
 // desestruturo os dados mais comuns e uso rest para todas as demais propriedades
-const Input = ({ label, id, setValue, ...props }) => {
+const Input = ({ label, id, onChange, ...props }) => {
   return (
     <>
       <label htmlFor={id}>{label}</label>
@@ -9,7 +9,7 @@ const Input = ({ label, id, setValue, ...props }) => {
         type="text"
         id={id}
         name={id}
-        onChange={({ target }) => setValue(target.value)}
+        onChange={onChange}
         //uso rest para todas as demais propriedades
         {...props}
       />
