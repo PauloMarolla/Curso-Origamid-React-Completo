@@ -1,18 +1,29 @@
 import React from 'react';
 
 // desestruturo os dados mais comuns e uso rest para todas as demais propriedades
-const Input = ({ label, id, onChange, ...props }) => {
+const Input = ({
+  label,
+  id,
+  onChange,
+  value,
+  type,
+  onBlur,
+  placeholder,
+  error,
+}) => {
   return (
     <>
       <label htmlFor={id}>{label}</label>
       <input
-        type="text"
         id={id}
         name={id}
         onChange={onChange}
-        //uso rest para todas as demais propriedades
-        {...props}
+        placeholder={placeholder}
+        onBlur={onBlur}
+        type={type}
+        value={value}
       />
+      {error && <p>{error}</p>}
     </>
   );
 };
