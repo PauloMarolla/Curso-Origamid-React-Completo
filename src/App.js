@@ -1,14 +1,26 @@
 import React from 'react';
-import Produto from './Produto';
 import './App.css';
+import Slide from './Slide';
 
 const App = () => {
-  const [ativar, setAtivar] = React.useState(false);
+  const slides = [
+    {
+      id: 'slide1',
+      text: 'slide 1',
+    },
+    {
+      id: 'slide2',
+      text: 'slide 2',
+    },
+    {
+      id: 'slide3',
+      text: 'slide 3',
+    },
+  ];
 
   return (
     <>
-      <button onClick={() => setAtivar(!ativar)}>Ativar</button>
-      {ativar && <Produto />}
+      <Slide slides={slides} />
     </>
   );
 };
