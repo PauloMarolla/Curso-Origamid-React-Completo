@@ -1,14 +1,21 @@
 import React from 'react';
-import './App.css';
-import foto from './img/foto.jpg';
-import { ReactComponent as Dog } from './img/dog.svg';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './Home';
+import Sobre from './Sobre';
+import Header from './Header';
+import Page404 from './Page404';
 
 const App = () => {
   return (
     <>
-      <p className="fundo"></p>
-      <Dog />
-      <img src={foto} alt="" />
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="sobre" element={<Sobre />} />
+          <Route path="*" element={<Page404 />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 };
