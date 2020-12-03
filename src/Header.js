@@ -1,8 +1,14 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import './Header.css';
 
 const Header = () => {
+  const location = useLocation();
+  //toda vez q alterar a rota, vai ser ativado o useEffect
+  React.useEffect(() => {
+    console.log('mudou a rota');
+  }, [location]);
+
   return (
     <nav>
       <NavLink to="/" end activeStyle={{ color: 'tomato' }}>
