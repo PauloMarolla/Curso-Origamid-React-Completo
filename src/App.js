@@ -16,7 +16,9 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="sobre" element={<Sobre />} />
           <Route path="login" element={<Login />} />
-          <Route path="produto/:id" element={<Produto />} />
+          {/* o * é utilizado para quando vc indica qualquer coisa apos a rota */}
+          <Route path="produto/:id/*" element={<Produto />} />
+          {/* o * é utilizado para pagina nao encontrada */}
           <Route path="*" element={<Page404 />} />
         </Routes>
       </BrowserRouter>
