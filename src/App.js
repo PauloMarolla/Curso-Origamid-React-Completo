@@ -1,25 +1,26 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './Home';
-import Sobre from './Sobre';
-import Header from './Header';
-import Page404 from './Page404';
-import Login from './Login';
+import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Footer from './Components/Footer';
+import Header from './Components/Header';
+import Produtos from './Components/Produtos';
+import Contato from './Components/Contato';
 
 const App = () => {
   return (
     <>
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="sobre" element={<Sobre />} />
-          <Route path="login" element={<Login />} />
-          {/* o * é utilizado para quando vc indica qualquer coisa apos a rota */}
-          {/* o * é utilizado para pagina nao encontrada */}
-          <Route path="*" element={<Page404 />} />
-        </Routes>
-      </BrowserRouter>
+      <div className="App">
+        <BrowserRouter>
+          <Header />
+          <div className="content">
+            <Routes>
+              <Route path="/" element={<Produtos />} />
+              <Route path="contato" element={<Contato />} />
+            </Routes>
+          </div>
+          <Footer />
+        </BrowserRouter>
+      </div>
     </>
   );
 };
