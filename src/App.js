@@ -1,14 +1,26 @@
 import React from 'react';
-import Header from './Header';
 
+//@param {state} o estado agora é o primeiro argumento
+//@param {action} é a acao ocorrida
+function reducer(state, action) {
+  switch (action) {
+    case 'aumentar':
+      return state + 1;
+    case 'diminuir':
+      return state - 1;
+    default:
+      throw new Error('action nao existe');
+  }
+}
 const App = () => {
-  const [contar, setContar] = React.useState(0);
+  //state é o estado, e o dispatch é a funcao q ativa a funcao redutora
+  const [state, dispatch] = React.useReducer(reducer, 0);
 
   return (
     <>
-      <Header />
-      <button onClick={() => setContar(contar + 1)}>Adicionar</button>
-      {contar}
+      <button onClick={() => dispatch('aumentar')}>+</button>
+      <button onClick={() => dispatch('diminuir')}>+</button>
+      <p>{state}</p>
     </>
   );
 };
