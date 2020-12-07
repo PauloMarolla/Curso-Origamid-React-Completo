@@ -1,19 +1,14 @@
 import React from 'react';
-//import no formato lazy
-const Contato = React.lazy(() => import('./Contato'));
+import Header from './Header';
 
 const App = () => {
-  const [ativo, setAtivo] = React.useState(false);
+  const [contar, setContar] = React.useState(0);
 
   return (
     <>
-      {/* chamar o suspense com o fallback  */}
-      {ativo && (
-        <React.Suspense fallback={<div>carregando...</div>}>
-          <Contato />
-        </React.Suspense>
-      )}
-      <button onClick={() => setAtivo(true)}>Ativar</button>
+      <Header />
+      <button onClick={() => setContar(contar + 1)}>Adicionar</button>
+      {contar}
     </>
   );
 };
